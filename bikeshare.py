@@ -23,17 +23,23 @@ def get_filters():
         if city in CITY_DATA.keys(): break
         print("Wrong input! You must choose from 'Chicago', 'New York City', or 'Washington'.")
     # TO DO: get user input for month (all, january, february, ... , june)
-    while True:
-        #make capital letter input to lower letter to avoid errors
-        month = input("Choose month (all, january, ... , june): ").lower()
-        if month in ['all', 'january', 'february', 'march', 'april', 'may', 'june']: break
-        print("Wrong input! You must choose from 'all', 'january', 'february', 'march', 'april', 'may', or 'june'.")
+    month_input = input("Would you like to choose month? ").lower()
+    if month_input == 'no':
+        month = 'all'
+    else:
+        while True:
+            month = input("Choose month (january, ... , june): ").lower()
+            if month in ['january', 'february', 'march', 'april', 'may', 'june']: break
+            print("Wrong input! You must choose from 'all', 'january', 'february', 'march', 'april', 'may', or 'june'.")
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    while True:
-        #make capital letter input to lower letter to avoid errors
-        day = input("Choose day of week (all, monday, tuesday, ... ,sunday): ").lower()
-        if day in ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']: break
-        print("Wrong input! You must choose from 'all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'.")
+    day_input = input("Would you like to choose day?").lower()
+    if day_input == 'no':
+        day = 'all'
+    else:
+        while True:
+            day = input("Choose day of week (, monday, tuesday, ... ,sunday): ").lower()
+            if day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']: break
+            print("Wrong input! You must choose from 'all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'.")
 
     print('-'*40)
     return city, month, day
@@ -54,7 +60,7 @@ def load_data(city, month, day):
 
     # extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df['day_of_week'] = df['Start Time'].dt.weekday
 
     # filter by month if applicable
     if month != 'all':
@@ -67,8 +73,10 @@ def load_data(city, month, day):
 
     # filter by day of week if applicable
     if day != 'all':
+        days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        day = days.index(day)
         # filter by day of week to create the new dataframe
-        df = df[df['day_of_week'] == day.title()]
+        df = df[df['day_of_week'] == day]
     return df
 
 
