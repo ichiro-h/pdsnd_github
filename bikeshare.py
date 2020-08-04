@@ -20,18 +20,18 @@ def get_filters():
     while True:
         city = input("Choose a city (chicago, new york city, washington): ").lower()
         if city in CITY_DATA.keys(): break
-        print("Wrong input!")
+        print("Wrong input! You must choose from 'Chicago', 'New York City', or 'Washington'.")
     # TO DO: get user input for month (all, january, february, ... , june)
     while True:
         month = input("Choose month (all, january, ... , june): ").lower()
         if month in ['all', 'january', 'february', 'march', 'april', 'may', 'june']: break
-        print("Wrong input!")
+        print("Wrong input! You must choose from 'all', 'january', 'february', 'march', 'april', 'may', or 'june'.")
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
         day = input("Choose day of week (all, monday, tuesday, ... ,sunday): ").lower()
         if day in ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']: break
-        print("Wrong input!")
-        
+        print("Wrong input! You must choose from 'all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'.")
+
     print('-'*40)
     return city, month, day
 
@@ -74,14 +74,14 @@ def time_stats(df):
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
-    
+
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
     # TO DO: display the most common month
     df['month'] = df['Start Time'].dt.month
     common_month = df['month'].mode()[0]
     print('Most common month:', common_month)
-    
+
     # TO DO: display the most common day of week
     df['Day of week'] = df['Start Time'].dt.weekday
     common_day_of_week = df['Day of week'].mode()[0]
@@ -101,7 +101,7 @@ def station_stats(df):
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
-    
+
     # TO DO: display most commonly used start station
     common_start_station = df['Start Station'].mode()[0]
     print('Most common start station:', common_start_station)
@@ -152,15 +152,15 @@ def user_stats(df):
         print('Earliest year of birth: ', earliest_year_birth)
         recent_year_birth = df['Birth Year'].max()
         print('Most recent year of birth: ', recent_year_birth)
-        most_common_year_birth = df['Birth Year'].mode()[0] 
-        print('Most common year of birth: ', most_common_year_birth) 
-    except: 
+        most_common_year_birth = df['Birth Year'].mode()[0]
+        print('Most common year of birth: ', most_common_year_birth)
+    except:
         print('Washington does not have gender and birth year data.')
-        
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-    
+
 def display_five_row(df):
     raw_data = input('Would you like to see the raw data? ', ).lower()
     if raw_data == 'yes':
@@ -182,7 +182,7 @@ def main():
         trip_duration_stats(df)
         user_stats(df)
         display_five_row(df)
-        
+
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
