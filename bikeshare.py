@@ -18,16 +18,19 @@ def get_filters():
     print('Hello! Let\'s explore some US bikeshare data!')
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     while True:
+        #make capital letter input to lower letter to avoid errors
         city = input("Choose a city (chicago, new york city, washington): ").lower()
         if city in CITY_DATA.keys(): break
         print("Wrong input! You must choose from 'Chicago', 'New York City', or 'Washington'.")
     # TO DO: get user input for month (all, january, february, ... , june)
     while True:
+        #make capital letter input to lower letter to avoid errors
         month = input("Choose month (all, january, ... , june): ").lower()
         if month in ['all', 'january', 'february', 'march', 'april', 'may', 'june']: break
         print("Wrong input! You must choose from 'all', 'january', 'february', 'march', 'april', 'may', or 'june'.")
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
+        #make capital letter input to lower letter to avoid errors
         day = input("Choose day of week (all, monday, tuesday, ... ,sunday): ").lower()
         if day in ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']: break
         print("Wrong input! You must choose from 'all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'.")
@@ -161,10 +164,12 @@ def user_stats(df):
     print('-'*40)
 
 
+#show raw data by five lines
 def display_five_row(df):
     raw_data = input('Would you like to see the raw data? ', ).lower()
     if raw_data == 'yes':
         i = 0
+        #use while loop to ask whether they wants to see 5 more rows
         while True:
             print(df.iloc[i:i+5, :])
             i = i + 5
@@ -182,7 +187,7 @@ def main():
         trip_duration_stats(df)
         user_stats(df)
         display_five_row(df)
-
+        #ask whether to start over
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
